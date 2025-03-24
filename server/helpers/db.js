@@ -20,22 +20,10 @@ const openDb = () => {
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
+    // ssl: process.env.SSL,
   })
   return pool
 }
-app.get("/", async (req, res) => {
-    console.log(query);
-
-    try {
-        const result = await query('select * from task');
-        const rows = result.rows ? result.rows : [];
-        res.status(200).json(rows);
-    } catch (error) {
-        console.log(error);
-        res.statusMessage = error;
-        res.status(500).json({ error: error });
-    }
-});
 module.exports = {
-  query
+  query, openDb,
 }
